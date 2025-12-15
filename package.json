@@ -1,0 +1,23 @@
+{
+  "name": "leandros",
+  "version": "0.0.1",
+  "description": "A simple JSON validator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emiller6505/leandros.git"
+  },
+  "keywords": [
+    "JSON",
+    "validator"
+  ],
+  "author": "Ethan Miller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emiller6505/leandros/issues"
+  },
+  "homepage": "https://github.com/emiller6505/leandros#readme"
+}
