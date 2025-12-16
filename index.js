@@ -57,6 +57,8 @@ export class ObjectSchema {
     * @param {object} obj
     */
   validate(obj) {
+    if (obj === undefined) return undefined;
+
     /***
      * Cases to cover:
      * 1. schema set to strict and not all the properties are there in the obj. check
@@ -66,7 +68,10 @@ export class ObjectSchema {
 
     const errorText = `LEANDROS: 'ERROR: The provided object shows signs of corruption and must be sanctified.`;
 
-    Object.keys(this.schema).forEach(schemaKey => {
+    // Object.keys(this.schema).forEach(schemaKey => {
+    const schemaKeys = Object.keys(this.schema);
+    for (let i = 0; i < schemaKeys.length; i++) {
+      const schemaKey = schemaKeys[i];
       if (obj[schemaKey] === undefined && this.schema.strict === true) {
         throw new Error(
           `${errorText} Property ${schemaKey} is required for schema ${this.name}. 
@@ -110,7 +115,7 @@ export class ObjectSchema {
           );
         }
       }
-    });
+    };
     return true;
   };
 };

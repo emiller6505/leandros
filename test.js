@@ -3,7 +3,7 @@ import { ObjectSchema } from "./index.js";
 console.log("Beginning Leandros test...")
 
 // init test variables
-const book = {
+const validBook = {
   name: "The Fellowship of the Ring",
   pages: 423,
   author: "J.R.R. Tolkien",
@@ -23,17 +23,17 @@ const book = {
     }
   ],
   directSequel: {
-      name: "The Two Towers",
-      pages: 352,
+    name: "The Two Towers",
+    pages: 352,
+    author: "J.R.R. Tolkien",
+    price: 30,
+    directSequel: {
+      name: "The Return of the King",
+      pages: 416,
       author: "J.R.R. Tolkien",
-      price: 30,
-      directSequel: {
-        name: "The Return of the King",
-        pages: 416,
-        author: "J.R.R. Tolkien",
-        price: 30
-      }
-    },
+      price: 30
+    }
+  },
 };
 
 const address = {
@@ -49,34 +49,33 @@ const person = {
   address,
 };
 
-try {
-  const BookSchema = new ObjectSchema({
-    name: { type: "string" },
-    pages: { type: "number" },
-    author: { type: "string" },
-    price: { type: "number" },
-    allSequels: { type: "array:self" },
-    directSequel: { type: "object:self" }
-  }, "Book");
-  const validIsValid = BookSchema.validate(book);
 
-  const AddressSchema = new ObjectSchema({
-    street: "string",
-    city: "string",
-    state: "string",
-    country: "string"
-  }, "Address");
+const BookSchema = new ObjectSchema({
+  name: { type: "string" },
+  pages: { type: "number" },
+  author: { type: "string" },
+  price: { type: "number" },
+  allSequels: { type: "array:self" },
+  directSequel: { type: "object:self" }
+}, "Book");
+const validIsValid = BookSchema.validate(validBook);
 
-  const PersonSchema = new ObjectSchema({
-    firstName: "string",
-    lastName: "string",
-    address: AddressSchema,
-  }, "Person");
+console.log("TEST PASSED: book validated.");
 
-  PersonSchema.validate(person);
-  if (validIsValid === true) {
-    console.log("TEST PASSED: schema with self-referential array and object is working correctly.")
-  }
-} catch (err) {
-  console.error("TEST FAILURE: valid schema failed. Error message: ", err.message);
+const AddressSchema = new ObjectSchema({
+  street: { type: "string" },
+  city: { type: "string" },
+  state: { type: "string" },
+  country: { type: "string" }
+}, "Address");
+
+const PersonSchema = new ObjectSchema({
+  firstName: { type: "string" },
+  lastName: { type: "string" },
+  address: { type: "object:ObjectSchema", schema: AddressSchema },
+}, "Person");
+
+PersonSchema.validate(person);
+if (validIsValid === true) {
+  console.log("TEST PASSED: person and address validated.")
 }
