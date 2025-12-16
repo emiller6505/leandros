@@ -35,7 +35,7 @@ export class ObjectSchema {
         throw new Error(
           `Schema key ${key}.type must be 'number', 'string', 'boolean', 'object', 'array', 
           'object:self', 'object:ObjectSchema', 'array:self', 'array:object', or 'array:ObjectSchema'. 
-          Received: ${schema[key]}`
+          Received: ${schema[key].type}`
         );
       }
       if (

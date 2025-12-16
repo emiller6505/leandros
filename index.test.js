@@ -23,6 +23,39 @@ describe("ObjectSchema tests", () => {
     ]
   };
 
+  const validBook = {
+  name: "The Fellowship of the Ring",
+  pages: 423,
+  author: "J.R.R. Tolkien",
+  price: 30,
+  allSequels: [
+    {
+      name: "The Two Towers",
+      pages: 352,
+      author: "J.R.R. Tolkien",
+      price: 30
+    },
+    {
+      name: "The Return of the King",
+      pages: 416,
+      author: "J.R.R. Tolkien",
+      price: 30
+    }
+  ],
+  directSequel: {
+    name: "The Two Towers",
+    pages: 352,
+    author: "J.R.R. Tolkien",
+    price: 30,
+    directSequel: {
+      name: "The Return of the King",
+      pages: 416,
+      author: "J.R.R. Tolkien",
+      price: 30
+    }
+  },
+};
+
   const AddressSchema = new ObjectSchema({
     street: { type: "string" },
     city: { type: "string" },
@@ -37,7 +70,34 @@ describe("ObjectSchema tests", () => {
     friends: { type: "array:self" }
   }, "Person");
 
-  it("Validates a valid person and their address successfully", () => {
+  const BookSchema = new ObjectSchema({
+    name: { type: "string" },
+    pages: { type: "number" },
+    author: { type: "string" },
+    price: { type: "number" },
+    allSequels: { type: "array:self" },
+    directSequel: { type: "object:self" }
+}, "Book");
+
+  it("Validates a valid schema and with a nested other schema", () => {
     expect(PersonSchema.validate(validPerson)).toBe(true);
   });
+
+  it("Validates a valid schema with a nested self-referential schema", () => {
+    expect(BookSchema.validate(validBook)).toBe(true);
+  });
+
+  it("Throws an error if schema contains unsupported type", () => {
+    let result;
+    try {
+      const BadSchema = new ObjectSchema({
+        something: {type: "fake"}
+      }, "Fake");
+    } catch (err) {
+      result = err;
+    }
+    expect(result.message).toEqual(`Schema key something.type must be 'number', 'string', 'boolean', 'object', 'array', 
+          'object:self', 'object:ObjectSchema', 'array:self', 'array:object', or 'array:ObjectSchema'. 
+          Received: fake`)
+  })
 })
