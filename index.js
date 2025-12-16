@@ -55,9 +55,10 @@ export class ObjectSchema {
   /***
     * Validates that a provided object matches this schema instance.
     * @param {object} obj
+    * @returns boolean | undefined
     */
   validate(obj) {
-    if (obj === undefined) return undefined;
+    if (obj === undefined || obj === null) return undefined;
 
     /***
      * Cases to cover:

@@ -67,9 +67,11 @@ const BookSchema = new ObjectSchema({
   allSequels: { type: "array:self" },
   directSequel: { type: "object:self" }
 }, "Book");
-const validIsValid = BookSchema.validate(validBook);
+const bookIsValid = BookSchema.validate(validBook);
 
-console.log("TEST PASSED: book validated.");
+if(bookIsValid) {
+  console.log("TEST PASSED: book validated.");
+}
 
 const AddressSchema = new ObjectSchema({
   street: { type: "string" },
@@ -85,8 +87,8 @@ const PersonSchema = new ObjectSchema({
   friends: { type: "array:self" }
 }, "Person");
 
-PersonSchema.validate(person);
-if (validIsValid === true) {
+const personIsValid = PersonSchema.validate(person);
+if (personIsValid === true) {
   console.log("TEST PASSED: person and address validated.")
 }
 
