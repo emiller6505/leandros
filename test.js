@@ -43,10 +43,19 @@ const address = {
   country: "USA"
 };
 
+const otherPerson = {
+  firstName: "Jane",
+  lastName: "Doe",
+  address,
+}
+
 const person = {
   firstName: "Joe",
   lastName: "Schmoe",
   address,
+  friends: [
+    otherPerson
+  ]
 };
 
 
@@ -73,9 +82,11 @@ const PersonSchema = new ObjectSchema({
   firstName: { type: "string" },
   lastName: { type: "string" },
   address: { type: "object:ObjectSchema", schema: AddressSchema },
+  friends: { type: "array:self" }
 }, "Person");
 
 PersonSchema.validate(person);
 if (validIsValid === true) {
   console.log("TEST PASSED: person and address validated.")
 }
+
