@@ -86,7 +86,7 @@ export class ObjectSchema {
           // it's an object, so just do the one
           this.validate(obj[schemaKey]);
         }
-      } else if (this.schema[schemaKey].type.includes("array:" && Array.isArray(obj[schemaKey]))) {
+      } else if (this.schema[schemaKey].type.includes("array:") && Array.isArray(obj[schemaKey])) {
         // handle array of regular types: string, number, boolean, or object
         // NOTE: this class does not process nested arrays. An array must be an array of a specific non-array type.
         const typeString = this.schema[schemaKey].type.split(":"[1]);

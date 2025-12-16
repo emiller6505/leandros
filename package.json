@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/emiller6505/leandros/issues"
   },
-  "homepage": "https://github.com/emiller6505/leandros#readme"
+  "homepage": "https://github.com/emiller6505/leandros#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "globals": "^16.5.0"
+  }
 }
