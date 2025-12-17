@@ -4,7 +4,7 @@ A simple JSON validator.
 # Example Usage
 
 ```
-import {ObjectSchema} from '../leandros/index.js';
+import {ObjectSchema} from 'leandros';
 
 const TestSchema = new ObjectSchema({property: {type: "string"}}, "TestSchema");
 
